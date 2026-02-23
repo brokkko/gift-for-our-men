@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>С 23 Февраля!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Oswald', sans-serif;
+            background: linear-gradient(135deg, #0a0e1a 0%, #1a1f2e 50%, #0f1419 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            color: #fff;
+        }
+
+        /* Фоновые эффекты */
+        .bg-effects {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        /* Молнии */
+        .lightning {
+            position: absolute;
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, #00d9ff, #fff, #00d9ff, transparent);
+            opacity: 0;
+            animation: lightningFlash 3s infinite;
+            box-shadow: 0 0 10px #00d9ff, 0 0 20px #00d9ff, 0 0 30px #00d9ff;
+        }
+
+        @keyframes lightningFlash {
+            0%, 90%, 100% { opacity: 0; }
+            91% { opacity: 0.8; }
+            92% { opacity: 0; }
+            93% { opacity: 0.8; }
+            94% { opacity: 0; }
+            95% { opacity: 0.4; }
+            96% { opacity: 0; }
+        }
+
+        /* Огненные частицы */
+        .fire-particle {
+            position: absolute;
+            background: radial-gradient(circle, #ff6b35, #f7931e, #ffd700);
+            border-radius: 50%;
+            opacity: 0;
+            animation: fireRise 4s infinite;
+            box-shadow: 0 0 10px #ff6b35, 0 0 20px #ff6b35;
+        }
+
+        @keyframes fireRise {
+            0% {
+                opacity: 0;
+                transform: translateY(0) scale(1);
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100vh) scale(0.5);
+            }
+        }
+
+        /* Искры */
+        .spark {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #ffd700;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #ffd700, 0 0 20px #ff6b35;
+            animation: sparkFly 3s infinite;
+        }
+
+        @keyframes sparkFly {
+            0%, 100% {
+                opacity: 0;
+                transform: translate(0, 0);
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--tx), var(--ty));
+            }
+        }
+
+        /* Шапка */
+        .header {
+            position: relative;
+            z-index: 10;
+            padding: 60px 20px 40px;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, transparent 100%);
+        }
+
+        .main-title {
+            font-family: 'Cinzel', serif;
+            font-size: 64px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ffd700 0%, #ffb700 50%, #ff6b35 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow:
+                0 0 30px rgba(255, 215, 0, 0.5),
+                0 0 60px rgba(255, 107, 53, 0.3);
+            margin-bottom: 20px;
+            animation: titleGlow 2s ease-in-out infinite alternate;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        @keyframes titleGlow {
+            from {
+                filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.6));
+            }
+            to {
+                filter: drop-shadow(0 0 40px rgba(255, 107, 53, 0.8));
+            }
+        }
+
+        .subtitle {
+            font-size: 28px;
+            color: #ffd700;
+            text-shadow:
+                0 0 10px rgba(255, 215, 0, 0.8),
+                0 0 20px rgba(255, 215, 0, 0.5);
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease 0.3s both;
+            letter-spacing: 3px;
+        }
+
+        .greeting-text {
+            max-width: 900px;
+            margin: 0 auto 40px;
+            padding: 35px;
+            background: linear-gradient(135deg, rgba(255,215,0,0.1) 0%, rgba(255,107,53,0.05) 100%);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 20px;
+            box-shadow:
+                0 0 30px rgba(255, 215, 0, 0.2),
+                inset 0 0 30px rgba(255, 215, 0, 0.05);
+            animation: fadeIn 1s ease 0.6s both;
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .greeting-text::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(135deg, #ffd700, #ff6b35, #ffd700);
+            border-radius: 20px;
+            opacity: 0.3;
+            z-index: -1;
+            filter: blur(15px);
+        }
+
+        .greeting-text p {
+            color: #ffffff;
+            font-size: 20px;
+            line-height: 1.8;
+            margin: 15px 0;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .greeting-text strong {
+            color: #ffd700;
+            font-size: 24px;
+            display: block;
+            margin-bottom: 15px;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+        }
+
+        /* Сетка коллег */
+        .grid-container {
+            position: relative;
+            z-index: 10;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            justify-content: center; /* Центрирует элементы */
+            gap: 35px;
+            padding: 40px 20px;
+            max-width: 1500px;
+            margin: 0 auto;
+        }
+
+        .colleague-card {
+            background: linear-gradient(135deg, rgba(26, 31, 46, 0.9) 0%, rgba(10, 14, 26, 0.9) 100%);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid rgba(255, 215, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .colleague-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .colleague-card::after {
+            content: '⚡';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 28px;
+            opacity: 0;
+            transition: all 0.3s;
+            filter: drop-shadow(0 0 10px #ffd700);
+        }
+
+        .colleague-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            border-color: #ffd700;
+            box-shadow:
+                0 20px 50px rgba(255, 215, 0, 0.3),
+                0 0 30px rgba(255, 107, 53, 0.2);
+        }
+
+        .colleague-card:hover::before {
+            opacity: 1;
+        }
+
+        .colleague-card:hover::after {
+            opacity: 1;
+            transform: rotate(15deg);
+        }
+
+        .avatar {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid transparent;
+            background: linear-gradient(135deg, #ffd700, #ff6b35);
+            padding: 4px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .avatar::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            padding: 10px;
+            background: linear-gradient(135deg, #ffd700, #ff6b35);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            z-index: -1;
+        }
+
+        .colleague-card:hover .avatar {
+            transform: scale(1.1);
+            box-shadow:
+                0 15px 40px rgba(255, 215, 0, 0.4),
+                0 0 30px rgba(255, 107, 53, 0.3);
+        }
+
+        .colleague-name {
+            font-family: 'Cinzel', serif;
+            font-size: 22px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffd700, #ffb700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(10,14,26,0.95) 0%, rgba(0,0,0,0.98) 100%);
+            backdrop-filter: blur(10px);
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1a1f2e 0%, #0a0e1a 100%);
+            padding: 50px;
+            border-radius: 25px;
+            max-width: 90%;
+            max-height: 90%;
+            text-align: center;
+            position: relative;
+            animation: zoomIn 0.4s;
+            border: 3px solid #ffd700;
+            box-shadow:
+                0 0 50px rgba(255, 215, 0, 0.4),
+                0 0 100px rgba(255, 107, 53, 0.2),
+                inset 0 0 50px rgba(255, 215, 0, 0.1);
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.7); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            color: #ffd700;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 2px solid #ffd700;
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .close-btn:hover {
+            color: #ff6b35;
+            border-color: #ff6b35;
+            background: rgba(255, 107, 53, 0.2);
+            transform: rotate(90deg) scale(1.1);
+            box-shadow: 0 0 30px rgba(255, 107, 53, 0.6);
+        }
+
+        .modal-comic {
+            max-width: 100%;
+            max-height: 65vh;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            border: 3px solid rgba(255, 215, 0, 0.5);
+        }
+
+        .download-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 18px 50px;
+            background: linear-gradient(135deg, #ffd700 0%, #ff6b35 100%);
+            color: #0a0e1a;
+            text-decoration: none;
+            border-radius: 35px;
+            font-weight: bold;
+            font-size: 20px;
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            box-shadow:
+                0 10px 30px rgba(255, 215, 0, 0.4),
+                0 0 60px rgba(255, 107, 53, 0.3);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow:
+                0 15px 40px rgba(255, 215, 0, 0.6),
+                0 0 80px rgba(255, 107, 53, 0.5);
+        }
+
+        .download-btn:hover::before {
+            left: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 36px;
+            }
+            .subtitle {
+                font-size: 20px;
+            }
+            .greeting-text p {
+                font-size: 16px;
+            }
+            .grid-container {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 20px;
+                padding: 20px 10px;
+            }
+            .colleague-name {
+                font-size: 18px;
+            }
+            .modal-content {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="bg-effects" id="bgEffects"></div>
+
+<header class="header">
+    <h1 class="main-title">★ С 23 ФЕВРАЛЯ! ★</h1>
+
+    <div class="greeting-text">
+        <p><strong>Дорогие наши коллеги!</strong></p>
+        <p>Поздравляем вас всех с Днём защитника Отечества 💥</p>
+        <p>Спасибо вам за ваш вклад в нашу общую миссию защиты и развития нашего проекта! За ваше умение справляться даже с самыми сложными ошибками и препятствиями 🚀✨</p>
+        <p>Это маленькая благодарность за вашу работу и поддержку друг друга каждый день ❤️</p>
+        <p>Пусть этот праздник принесёт вам радость, веселье и заряд энергии на весь год вперёд!</p>
+    </div>
+</header>
+
+<main class="grid-container" id="grid"></main>
+
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">×</span>
+        <h2 id="modal-name" style="font-family: 'Cinzel', serif; font-size: 36px; margin-bottom: 25px; background: linear-gradient(135deg, #ffd700, #ff6b35); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></h2>
+        <img id="modal-img" class="modal-comic" src="" alt="Открытка">
+        <br>
+        <a id="download-link" class="download-btn" href="#" download>⬇ Скачать открытку</a>
+    </div>
+</div>
+
+<script>
+    function createBackgroundEffects() {
+        const effectsContainer = document.getElementById('bgEffects');
+
+        // Молнии
+        for (let i = 0; i < 3; i++) {
+            const lightning = document.createElement('div');
+            lightning.className = 'lightning';
+            lightning.style.left = Math.random() * 100 + '%';
+            lightning.style.top = Math.random() * 50 + '%';
+            lightning.style.height = (Math.random() * 200 + 100) + 'px';
+            lightning.style.animationDelay = (Math.random() * 5) + 's';
+            effectsContainer.appendChild(lightning);
+        }
+
+        // Огненные частицы
+        for (let i = 0; i < 100; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'fire-particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.bottom = '0';
+            particle.style.width = (Math.random() * 10 + 5) + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.animationDelay = (Math.random() * 4) + 's';
+            particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            effectsContainer.appendChild(particle);
+        }
+
+        // Искры
+        for (let i = 0; i < 50; i++) {
+            const spark = document.createElement('div');
+            spark.className = 'spark';
+            spark.style.left = Math.random() * 100 + '%';
+            spark.style.top = Math.random() * 100 + '%';
+            spark.style.setProperty('--tx', (Math.random() - 0.5) * 300 + 'px');
+            spark.style.setProperty('--ty', (Math.random() - 0.5) * 300 + 'px');
+            spark.style.animationDelay = (Math.random() * 3) + 's';
+            effectsContainer.appendChild(spark);
+        }
+    }
+
+    createBackgroundEffects();
+
+    const colleagues = [
+        { name: "Дима Морочко", photo: "/data/dima_2.png", comic: "data/dima_2.png" },
+        { name: "Федя Дмитриев", photo: "/data/fedya_2.png", comic: "data/fedya_2.png" },
+        { name: "Ваня Калинин", photo: "/data/ivan_2.png", comic: "data/ivan_2.png" },
+        { name: "Кирилл Тихолоз", photo: "/data/kirill_2.png", comic: "data/kirill_2.png" },
+        { name: "Максим Манютин", photo: "data/maksim_2.png", comic: "data/maksim_2.png" },
+        { name: "Марат Абсаматов", photo: "data/marat_2.png", comic: "data/marat_2.png" },
+        { name: "Олег Хабаров", photo: "data/oleg_2.png", comic: "data/oleg_2.png" },
+        { name: "Паша Гливацкий", photo: "data/pasha_2.png", comic: "data/pasha_2.png" },
+        { name: "Рашит Кагерманов", photo: "data/rashit_2.jpg", comic: "data/rashit_2.jpg" },
+        { name: "Саша Примаков", photo: "data/sasha_2.png", comic: "data/sasha_2.png" },
+        { name: "Саша Кругликов", photo: "data/sasha_kruglikov_2.png", comic: "data/sasha_kruglikov_2.png" },
+        { name: "Серёжа Попов", photo: "data/sereja_2.png", comic: "data/sereja_2.png" },
+        { name: "Тимур Абукаров", photo: "data/timur_2.png", comic: "data/timur_2.png" },
+        { name: "Антон Клапшин", photo: "data/anton_2.png", comic: "data/anton_2.png" },
+    ];
+
+    const grid = document.getElementById('grid');
+    const modal = document.getElementById('modal');
+    const modalName = document.getElementById('modal-name');
+    const modalImg = document.getElementById('modal-img');
+    const downloadLink = document.getElementById('download-link');
+
+    colleagues.forEach((person, index) => {
+        const card = document.createElement('div');
+        card.className = 'colleague-card';
+        card.onclick = () => openModal(index);
+
+        card.innerHTML = `
+            <img src="${person.photo}" alt="${person.name}" class="avatar">
+            <div class="colleague-name">${person.name}</div>
+        `;
+        grid.appendChild(card);
+    });
+
+    // Открытие модального окна
+    function openModal(index) {
+        const person = colleagues[index];
+        modalName.textContent = person.name;
+        modalImg.src = person.comic;
+        downloadLink.href = person.comic;
+        modal.style.display = 'flex';
+    }
+
+    function closeModal() {
+        modal.style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            closeModal();
+        }
+    }
+</script>
+</body>
+</html>
